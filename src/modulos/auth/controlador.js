@@ -7,8 +7,8 @@ exports.createUser =(data) =>{
         if(!data.name) return 'No se ha enviado un nombre'
         if(!data.lastName) return 'No se ha enviado un apellido'
         if(!data.semester) return 'No se ha enviado un semestre'
-        if(!data.major) return 'No se ha enviado una carrera'
-        if(!data.rol) return 'No se ha enviado un rol'
+        if(!data.major) return 'No se ha enviado un id de carrera'
+        if(!data.rol) return 'No se ha enviado un id de rol'
         return modelo.createUser(data.email, data.password, data.card, data.name, data.lastName, data.semester, data.major, data.rol)
 }
 
