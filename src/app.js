@@ -6,6 +6,7 @@ const config = require('./config.js');
 const auth = require('./modulos/auth/rutas.js');
 const members = require('./modulos/members/route.js');
 const clubs = require('./modulos/Clubs/route.js');
+const projects = require('./modulos/Projects/route.js');
 const error = require('./red/errors');
 
 const app = express();
@@ -27,6 +28,7 @@ module.exports = app;
 app.use('/api/auth', auth)
 app.use('/api/members', members)
 app.use('/api/clubs', clubs)
+app.use('/api/projects', projects)
 app.use(error)  
 
 //endregion

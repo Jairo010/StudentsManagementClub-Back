@@ -8,8 +8,7 @@ exports.getMembers = async () =>{
             .from('Integrantes')
             .select('cedula, Nombre, Apellido, Semestre, Carreras (id, Nombre), Roles (id, Nombre)')
             .eq('id', user.id)
-            .single();
-    
+            .order('id', { ascending: true });
         if (userError) {
             console.error('Error al obtener datos adicionales para el usuario:', user.id, userError);
             return { id: user.id, email: user.email, additionalData: null };
