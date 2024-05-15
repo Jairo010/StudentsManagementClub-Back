@@ -4,6 +4,7 @@ const cors = require('cors')
 const config = require('./config.js');
 
 const auth = require('./modulos/auth/rutas.js');
+const members = require('./modulos/members/route.js');
 const clubs = require('./modulos/Clubs/route.js');
 const error = require('./red/errors');
 
@@ -24,6 +25,7 @@ module.exports = app;
 
 //#region Rutas
 app.use('/api/auth', auth)
+app.use('/api/members', members)
 app.use('/api/club', clubs)
 app.use(error)  
 

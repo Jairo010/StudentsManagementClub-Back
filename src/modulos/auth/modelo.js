@@ -50,6 +50,7 @@ exports.login = async (email, password) =>{
     .single()
     if(errorUsers) return errorUsers
     console.log(users)
+    if(users.Roles.Nombre =='Bloqueado') return 'Usuario boqueado'
     const user = {
          "email":data.user.email,
          "card": users.cedula,
@@ -60,7 +61,7 @@ exports.login = async (email, password) =>{
          "rol": users.Roles.Nombre,
          "access_token": data.session.access_token
      }
-    return user
+    return {"user":user}
 }
 
 exports.getResetToken = async (email) => {
