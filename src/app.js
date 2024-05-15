@@ -26,7 +26,7 @@ module.exports = app;
 //#region Rutas
 app.use('/api/auth', auth)
 app.use('/api/members', members)
-app.use('/api/club', clubs)
+app.use('/api/clubs', clubs)
 app.use(error)  
 
 //endregion
