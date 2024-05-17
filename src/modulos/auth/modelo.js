@@ -1,40 +1,41 @@
-const supabasePublic = require('../../DB/postgresql')
-
 const supabase = require('../../DB/postgresql').supabase
 
-exports.createUser = async (email, password, card, name, lastName, semester, major, rol) =>{
-    let { data: Major, errorMajor } = await supabase
-    .from('Carreras')
-    .select('id')
-    .eq('Nombre', major)
-    .single()
-    if(errorMajor) return errorMajor
-    if(!Major) return 'Carrera no existente'
-    let { data: Rol, errorRol } = await supabase
-    .from('Roles')
-    .select('id')
-    .eq('Nombre', rol)
-    .single()
-    if(errorRol) return errorRol
-    if(!Rol) return 'Rol no existente'
+async function existUser (email, card) {
+    const {data: {users}, error} = await supabase.auth.admin.listUsers()
+    if(error) return error
+    let existUser = users.find(user => user.email == email)
+    if(existUser) return true
+    
+    let { data: Integrantes, errorIntegrantes } = await supabase
+        .from('Integrantes')
+        .select("*")
+        .eq('cedula', card)
+    if(Integrantes.length>0) return true   
+    return false
+}
+
+exports.createUser = async (email, password, card, name, lastName, semester, idMajor, idRol) =>{ 
+    let userExist = await existUser(email, card)
+    if( userExist == true ) return 'Usuario ya existente'
     let { data, error } = await supabase.auth.signUp({
         email: email,
         password: password
     })
     if(error) return error
-    let { dataInsert, errorInsert } = await supabase
+    let { dataIntegrantes, errorInsert } = await supabase
     .from('Integrantes')
     .insert(
-    { id: data.user.id, cedula: card, Nombre: name, Apellido: lastName, Semestre: semester, Id_Carrera: Major.id, Id_Rol: Rol.id }
+    { id: data.user.id, cedula: card, Nombre: name, Apellido: lastName, Semestre: semester, Id_Carrera: idMajor, Id_Rol: idRol }
     )
     .select()
+    console.log(dataIntegrantes)
     if(errorInsert) {
         const { dataUser, errorUser } = await supabase.auth.admin.deleteUser(data.user.id)
         if(dataUser) return errorInsert
     }
-    console.log(dataInsert)
-    return 'Usuario creado'
+    return data.user
 }
+
 
 exports.login = async (email, password) =>{
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -49,6 +50,7 @@ exports.login = async (email, password) =>{
     .single()
     if(errorUsers) return errorUsers
     console.log(users)
+    if(users.Roles.Nombre =='Bloqueado') return 'Usuario boqueado'
     const user = {
          "email":data.user.email,
          "card": users.cedula,
@@ -59,7 +61,7 @@ exports.login = async (email, password) =>{
          "rol": users.Roles.Nombre,
          "access_token": data.session.access_token
      }
-    return user
+    return {"user":user}
 }
 
 exports.getResetToken = async (email) => {
@@ -68,14 +70,22 @@ exports.getResetToken = async (email) => {
     })
     if(error) return error
     return data
-}
+}   
 
-exports.resetPassword = async (token, newPassword) => {
+exports.resetPassword = async (token, refreshToken, newPassword) => {   
+    const { dataSigIn, errorsigIn } = await supabase.auth.refreshSession({"refresh_token": refreshToken})
+    if (errorsigIn) errorsigIn
+    console.log(dataSigIn)
     const { data, error } = await supabase.auth.updateUser(token,{
         password: newPassword
     })
     if(error) return error
-    return data
+    const { data: user, errorUpdate } = await supabase.auth.admin.updateUserById(
+        data.user.id,
+        { password: newPassword }
+    )
+    if(errorUpdate) return errorUpdate
+    return user
 }
 
 exports.authMiddleware = async (datos) =>{
