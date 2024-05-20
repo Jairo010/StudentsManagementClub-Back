@@ -14,8 +14,7 @@ exports.getMembers = async () =>{
             return { id: user.id, email: user.email, additionalData: null };
         }
     
-        return userData;
-        //return {email:user.email, data:userData};
+        return {id: user.id, email: user.email, cedula: userData[0].cedula, nombre: userData[0].Nombre, apellido: userData[0].Apellido, semestre: userData[0].Semestre, carrera: userData[0].Carreras, rol: userData[0].Roles };
     }));
     return usersWithAdditionalData
 }
