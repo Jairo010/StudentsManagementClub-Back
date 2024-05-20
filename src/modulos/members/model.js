@@ -14,7 +14,8 @@ exports.getMembers = async () =>{
             return { id: user.id, email: user.email, additionalData: null };
         }
     
-        return { id: user.id, email: user.email, ...userData };
+        return userData;
+        //return {email:user.email, data:userData};
     }));
     return usersWithAdditionalData
 }

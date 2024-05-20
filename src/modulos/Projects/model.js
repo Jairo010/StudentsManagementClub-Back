@@ -1,14 +1,14 @@
 const supabase = require('../../DB/postgresql').supabase
 
-exports.createProject = async (dato) =>{
+exports.createProject = async (data) =>{
     const currentDate= new Date()
     const formattedDate = currentDate.toISOString()
-    const { data, error } = await supabase
+    const { data: dataProject, error } = await supabase
     .from('Proyectos')
-    .insert({ Nombre: dato.name , Descripcion: dato.description? dato.description : null, Fecha_Ini: dato.startDate ? dato.startDate: formattedDate, Fecha_Fin: dato.endDate, Id_Club: dato.idClub})
-    .select('*, Id_Club(id, Nombre)')
+    .insert({ Nombre: data.name , Descripcion: data.description? data.description : null, Fecha_Ini: data.startDate ? data.startDate: formattedDate, Fecha_Fin: data.endDate, Id_Club: data.idClub})
+    .select()
     if(error) {
-        if(error.details) return 'Non-existing club'
+        if(error.details) return 'Creating project was wrong'
         return error
     }
     return data
@@ -30,20 +30,20 @@ exports.getProject = async (id) =>{
     .eq('id', id)
     .single()
     if(error) {
-        if(error.details) return 'Non-existing Club'
+        if(error.details) return 'Non-existing Project'
         return error
     }
     return Proyecto
 }
 
-exports.updateProject = async (dato) =>{
-    const { data, error } = await supabase
+exports.updateProject = async (data) =>{
+    const { data: dataProject, error } = await supabase
     .from('Proyectos')
-    .update({Nombre: dato.name , Descripcion: dato.description, Fecha_Ini: dato.startDate , Fecha_Fin: dato.endDate, Id_Club: dato.idClub})
-    .eq('id', dato.id)
-    .select('*, Id_Club(id, Nombre)')
+    .update({Nombre: data.name , Descripcion: data.description, Fecha_Ini: data.startDate , Fecha_Fin: data.endDate, Id_Club: data.idClub})
+    .eq('id', data.id)
+    .select()
     if(error) {
-        if(error.details) return 'Non-existing Club'
+        if(error.details) return 'Non-existing Project'
         return error
     }
     return data
