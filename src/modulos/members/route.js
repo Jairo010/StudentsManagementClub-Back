@@ -13,7 +13,8 @@ router.delete('/:id', deleteMember);
 async function getMembers(req, res, next){
     try {
         const items = await controller.getMembers()
-        response.success(req,res, items, 200)
+        //response.success(req,res, items, 200)
+        return res.status(200).json( {data:items});
     } catch (error) {
         next(error)
     }

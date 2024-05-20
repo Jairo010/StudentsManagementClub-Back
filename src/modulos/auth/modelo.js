@@ -58,7 +58,7 @@ exports.login = async (email, password) =>{
          "lastName": users.Apellido,
          "semester": users.Semestre,
          "major": users.Carreras.Nombre,
-         "rol": users.Roles.Nombre,
+         "rol": users.Roles.Nombre, 
          "access_token": data.session.access_token
      }
     return {"user":user}
