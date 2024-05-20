@@ -28,8 +28,7 @@ exports.createUser = async (email, password, card, name, lastName, semester, idM
     { id: data.user.id, cedula: card, Nombre: name, Apellido: lastName, Semestre: semester, Id_Carrera: idMajor, Id_Rol: idRol }
     )
     .select()
-    console.log(dataIntegrantes)
-    if(errorInsert) {
+    if(errorInsert ) {
         const { dataUser, errorUser } = await supabase.auth.admin.deleteUser(data.user.id)
         if(dataUser) return errorInsert
     }
