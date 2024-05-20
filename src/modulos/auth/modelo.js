@@ -42,15 +42,15 @@ exports.login = async (email, password) =>{
         email: email,
         password: password
     })
-    if(error) return error
+    if(error) throw new Error(error);
     let { data: users, errorUsers } = await supabase
     .from('Integrantes')
     .select('cedula, Nombre, Apellido, Semestre, Carreras (Nombre), Roles (Nombre)')
     .eq('id', data.user.id)
     .single()
-    if(errorUsers) return errorUsers
+    if(errorUsers) throw new Error(errorUsers);
     console.log(users)
-    if(users.Roles.Nombre =='Bloqueado') return 'Usuario boqueado'
+    if(users.Roles.Nombre =='Bloqueado') throw new Error('Usuario bloqueado');
     const user = {
          "email":data.user.email,
          "card": users.cedula,
