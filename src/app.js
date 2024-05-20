@@ -8,6 +8,8 @@ const members = require('./modulos/members/route.js');
 const clubs = require('./modulos/Clubs/route.js');
 const projects = require('./modulos/Projects/route.js');
 const tasks = require('./modulos/Tasks/route.js');
+const majors = require('./modulos/Majors/route.js')
+const roles = require('./modulos/Roles/route.js')
 const error = require('./red/errors');
 
 const app = express();
@@ -31,6 +33,8 @@ app.use('/api/members', members)
 app.use('/api/clubs', clubs)
 app.use('/api/projects', projects)
 app.use('/api/tasks', tasks)
+app.use('/api/majors', majors)
+app.use('/api/roles', roles)
 app.use(error)  
 
 //endregion
