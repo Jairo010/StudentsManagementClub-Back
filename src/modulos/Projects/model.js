@@ -43,7 +43,7 @@ exports.updateProject = async (data) =>{
     .eq('id', data.id)
     .select()
     if(error) {
-        if(error.details) return 'Non-existing Project'
+        if(error.details) return 'Non-existing Club'
         return error
     }
     return data
