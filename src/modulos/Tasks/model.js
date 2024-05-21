@@ -48,7 +48,7 @@ exports.updateTask = async (data) =>{
 }
 
 exports.deleteTask = async(id) =>{    
-    const project = await this.getProject(id)
+    const project = await this.getTask(id)
     if(!project.id) return 'Non-existing project'
     const { error } = await supabase
     .from('Tareas')
