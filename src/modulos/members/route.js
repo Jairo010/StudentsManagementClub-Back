@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/', getMembers);
 router.get('/:id', getMember);
+router.get('/getByCard/:card', getMembersByCard);
 router.post('/', updateMember);
 router.delete('/:id', deleteMember);
 
@@ -43,6 +44,15 @@ async function deleteMember(req, res, next){
         const item = await controller.deleteMember(req.params)
         response.success(req,res, item, 200)
     } catch (error){
+        next(error)
+    }
+}
+
+async function getMembersByCard(req, res, next){
+    try {
+        const items = await controller.getMembersByCard(req.params)
+        response.success(req,res, items, 200)
+    } catch (error) {
         next(error)
     }
 }

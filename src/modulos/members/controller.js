@@ -24,3 +24,8 @@ exports.deleteMember = (data) =>{
     if(!data.id) return 'id not provided'
     return model.deleteMember(data.id)
 }
+
+exports.getMembersByCard = (data) =>{
+    if(!data.card) return 'card not provided'
+    return model.getMembersByCard(data.card)
+}
