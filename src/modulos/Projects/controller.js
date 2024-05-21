@@ -26,3 +26,8 @@ exports.deleteProject = (data) => {
     if(!data.id) return 'id not provided'
     return model.deleteProject(data.id)
 }
+
+exports.getProjectsByName= (data) =>{
+    if(!data.name) return 'name not provided'
+    return model.getProjectsByName(data.name)
+}

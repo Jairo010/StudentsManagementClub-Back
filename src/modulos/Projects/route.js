@@ -8,6 +8,7 @@ const router = express.Router();
 router.post('/', createProject);
 router.get('/', getProjects);
 router.get('/:id', getProject)
+router.get('/getByName/:name', getProjectsByName);
 router.put('/', updateProject)
 router.delete('/:id', deleteProject)
 
@@ -51,6 +52,15 @@ async function deleteProject(req, res, next){
     try {
         const item = await controller.deleteProject(req.params)
         response.success(req,res, item, 200)
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function getProjectsByName(req, res, next){
+    try {
+        const items = await controller.getProjectsByName(req.params)
+        response.success(req,res, items, 200)
     } catch (error) {
         next(error)
     }
