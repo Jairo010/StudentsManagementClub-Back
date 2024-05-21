@@ -59,3 +59,16 @@ exports.deleteProject = async(id) =>{
     if(error) return error
     return 'project eliminated'
 }
+
+exports.getProjectsByName = async(name) =>{
+    let { data: Proyecto, error } = await supabase
+    .from('Proyectos')
+    .select('*, Id_Club(id, Nombre)')
+    .ilike('Nombre', `%${name}%`)
+    .order('id', { ascending: true })
+    if(error) {
+        if(error.details) return 'Non-existing Project'
+        return error
+    }
+    return Proyecto
+}
