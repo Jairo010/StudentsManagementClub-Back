@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', getMembers);
 router.get('/:id', getMember);
 router.get('/getByCard/:card', getMembersByCard);
-router.post('/', updateMember);
+router.put('/', updateMember);
 router.delete('/:id', deleteMember);
 
 async function getMembers(req, res, next){
