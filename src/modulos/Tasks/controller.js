@@ -33,6 +33,12 @@ exports.updateTask =(data) =>{
     return model.updateTask(data)
 }
 
+exports.deleteAssignedTask = (data) =>{
+    if(!data.idTask) return 'idTask not provided'
+    if(!data.card) return 'card not provided'
+    return model.deleteAssignedTask(data.idTask, data.card)
+}
+
 exports.deleteTask = (data) => {
     if(!data.id) return 'id not provided'
     return model.deleteTask(data.id)

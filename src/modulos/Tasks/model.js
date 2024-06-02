@@ -12,10 +12,6 @@ exports.createTask = async (data) =>{
     return data
 }
 
-exports.addTaskUser = async (data) =>{
-
-}
-
 exports.getTasks = async () =>{    
     let { data: Tareas, error } = await supabase
     .from('Tareas')
@@ -86,12 +82,22 @@ exports.assignTask = async (idTask, card) => {
     .insert({ Id_Tarea: idTask, Id_Integrante: card})
     .select()
     if(error) return error
-    return "Task: " + idTask + "assigned to the student: "+ card
+    return "Task: " + idTask + " assigned to the student: "+ card
+}
+
+exports.deleteAssignedTask= async(idTask, card) =>{
+    const { error } = await supabase
+    .from('DetalleTareas')
+    .delete()
+    .eq('Id_Tarea', idTask)
+    .eq("Id_Integrante", card)
+    if(error) return error
+    return "assigned task deleted"      
 }
 
 exports.deleteTask = async(id) =>{    
     const project = await this.getTask(id)
-    if(!project.id) return 'Non-existing project'
+    if(!project.id) return 'Non-existing task'
     const { error } = await supabase
     .from('Tareas')
     .delete()

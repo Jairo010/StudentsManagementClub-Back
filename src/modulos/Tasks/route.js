@@ -1,7 +1,7 @@
 const express = require('express');
 
 const response = require('../../red/respuestas')
-const controller = require('./controller')
+const controller = require('./controller');
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get('/:id', getTask)
 router.get('/getByCard/:card', getTasksByCard)
 router.put('/', updateTask)
 router.delete('/:id', deleteTask)
+router.delete('/deleteTask/:idTask/:card', deleteAssignedTask)
 
 async function createTask(req, res, next){
     try {
@@ -71,6 +72,15 @@ async function updateTask(req, res, next){
 async function deleteTask(req, res, next){
     try {
         const item = await controller.deleteTask(req.params)
+        response.success(req,res, item, 200)
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function deleteAssignedTask(req, res, next){
+    try {
+        const item = await controller.deleteAssignedTask(req.params)
         response.success(req,res, item, 200)
     } catch (error) {
         next(error)
