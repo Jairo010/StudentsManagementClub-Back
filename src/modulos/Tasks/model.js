@@ -12,6 +12,10 @@ exports.createTask = async (data) =>{
     return data
 }
 
+exports.addTaskUser = async (data) =>{
+
+}
+
 exports.getTasks = async () =>{    
     let { data: Tareas, error } = await supabase
     .from('Tareas')
@@ -45,6 +49,44 @@ exports.updateTask = async (data) =>{
         return error
     }
     return data
+}
+
+exports.getTasksByCard = async (card) =>{    
+    let { data: DetalleTareas, error } = await supabase
+    .from('DetalleTareas')
+    .select('Tareas (*, Id_Proyecto (id, Nombre, Id_Club(id, Nombre)))')
+    .eq('Id_Integrante', card)
+    if(error) return error
+    const newTasks=  DetalleTareas.map(Tarea=> {
+        return {"id": Tarea.Tareas.id, 
+                "estado": Tarea.Tareas.Estado,
+                "nombre": Tarea.Tareas.Nombre,
+                "evidencia": Tarea.Tareas.Evidencia,
+               "descripcion": Tarea.Tareas.Descripcion,
+                "idProyecto": Tarea.Tareas.Id_Proyecto.id,
+                "nombreProyecto": Tarea.Tareas.Id_Proyecto.Nombre,
+                "idClub": Tarea.Tareas.Id_Proyecto.Id_Club.id,
+                "nombreClub": Tarea.Tareas.Id_Proyecto.Id_Club.Nombre
+                }
+    })
+    return newTasks
+}   
+
+exports.assignTask = async (idTask, card) => {
+    
+    let { data: DetalleTareas, errorTareas } = await supabase
+    .from('DetalleTareas')
+    .select("*")
+    .eq('Id_Tarea', idTask)
+    .eq('Id_Integrante', card)   
+    if(errorTareas) return errorTareas
+    if(DetalleTareas.length>0) return 'Task already assigned to member'
+    const { data, error } = await supabase
+    .from('DetalleTareas')
+    .insert({ Id_Tarea: idTask, Id_Integrante: card})
+    .select()
+    if(error) return error
+    return "Task: " + idTask + "assigned to the student: "+ card
 }
 
 exports.deleteTask = async(id) =>{    

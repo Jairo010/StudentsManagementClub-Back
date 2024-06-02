@@ -6,6 +6,12 @@ exports.createTask =(data) =>{
     return model.createTask(data)
 }
 
+exports.assignTask = (data) =>{
+    if(!data.idTask) return 'idTask not provided'
+    if(!data.card) return 'card not provided'
+    return model.assignTask(data.idTask, data.card)
+}
+
 exports.getTasks = () =>{
     return model.getTasks()
 }
@@ -13,6 +19,11 @@ exports.getTasks = () =>{
 exports.getTask =(data) =>{
     if(!data.id) return 'id not provided'
     return model.getTask(data.id)
+}
+
+exports.getTasksByCard = (data) =>{
+    if(!data.card) return 'card not provided'
+    return model.getTasksByCard(data.card)
 }
 
 exports.updateTask =(data) =>{
