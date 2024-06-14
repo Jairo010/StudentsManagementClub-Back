@@ -11,6 +11,7 @@ const tasks = require('./modulos/Tasks/route.js');
 const majors = require('./modulos/Majors/route.js')
 const roles = require('./modulos/Roles/route.js')
 const events = require('./modulos/events/route.js')
+const participants = require('./modulos/Participants/route.js')
 const error = require('./red/errors');
 
 const app = express();
@@ -37,7 +38,6 @@ app.use('/api/tasks', tasks)
 app.use('/api/majors', majors)
 app.use('/api/roles', roles)
 app.use('/api/events', events)
+app.use('/api/participants', participants)
 app.use(error)  
-
 //endregion
-

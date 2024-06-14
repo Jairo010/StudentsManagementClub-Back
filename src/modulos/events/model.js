@@ -4,7 +4,7 @@ exports.createEvent = async (data) =>{
     const { data: event, error } = await supabase
     .from('Eventos')
     .insert(
-    { Nombre: data.name, Descripcion: data.description, Fecha_Ini: data.startDate, Fecha_Fin: data.endDate, Tipo_Evento: data.typeEvent})
+    { Nombre: data.name, Descripcion: data.description, Fecha_Ini: data.startDate, Fecha_Fin: data.endDate, Tipo_Evento: data.typeEvent, Estado: data.status})
     .select()
     .single()
     if(error) return error
@@ -34,7 +34,7 @@ exports.updateEvent = async (data) =>{
     
     const { data: event, error } = await supabase
     .from('Eventos')
-    .update({Nombre: data.name, Descripcion: data.description, Fecha_Ini: data.startDate, Fecha_Fin: data.endDate, Tipo_Evento: data.typeEvent})
+    .update({Nombre: data.name, Descripcion: data.description, Fecha_Ini: data.startDate, Fecha_Fin: data.endDate, Tipo_Evento: data.typeEvent, Estado: data.status})
     .eq('id', data.id)
     .select()
     .single()

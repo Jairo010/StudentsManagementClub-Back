@@ -5,6 +5,7 @@ exports.createEvent =(data) =>{
     if(!data.startDate) return 'startDate not provided'
     if(!data.endDate) return 'endDate not provided'
     if(!data.typeEvent) return 'typeEvent not provided'
+    if(!data.status) return 'status not provided'
     return model.createEvent(data)
 }
 
@@ -23,6 +24,7 @@ exports.updateEvent =(data) =>{
     if(!data.startDate) return 'startDate not provided'
     if(!data.endDate) return 'endDate not provided'
     if(!data.typeEvent) return 'typeEvent not provided'
+    if(!data.status) return 'status not provided'
     return model.updateEvent(data)
 }
 
