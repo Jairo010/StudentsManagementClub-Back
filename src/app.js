@@ -12,6 +12,8 @@ const majors = require('./modulos/Majors/route.js')
 const roles = require('./modulos/Roles/route.js')
 const events = require('./modulos/events/route.js')
 const participants = require('./modulos/Participants/route.js')
+const universities = require('./modulos/Universities/route.js')
+const groups = require('./modulos/Groups/route.js')
 const error = require('./red/errors');
 
 const app = express();
@@ -39,5 +41,7 @@ app.use('/api/majors', majors)
 app.use('/api/roles', roles)
 app.use('/api/events', events)
 app.use('/api/participants', participants)
+app.use('/api/universities', universities)
+app.use('/api/groups', groups)
 app.use(error)  
 //endregion

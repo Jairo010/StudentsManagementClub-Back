@@ -1,12 +1,13 @@
 const express = require('express');
 
 const response = require('../../red/respuestas')
-const controller = require('./controller')
+const controller = require('./controller');
 
 const router = express.Router();
 
 router.post('/', createParticipant);
 router.get('/', getParticipants);
+router.get('/groups/:card', getGroupsOfParticipant)
 router.get('/:card', getParticipant)
 router.put('/', updateParticipant)
 router.delete('/:card', deleteParticipant)
@@ -51,6 +52,15 @@ async function updateParticipant(req, res, next){
 async function deleteParticipant(req, res, next){
     try {
         const item = await controller.deleteParticipant(req.params)
+        response.success(req,res, item, 200)
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function getGroupsOfParticipant(req, res, next){
+    try {
+        const item = await controller.getGroupsOfParticipant(req.params)
         response.success(req,res, item, 200)
     } catch (error) {
         next(error)
