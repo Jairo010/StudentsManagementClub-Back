@@ -52,3 +52,22 @@ exports.deleteParticipant = async(card) =>{
     if(error) return error
     return "participant eliminated"
 }
+
+exports.getGroupsOfParticipant = async(card) => {
+    const participant = await this.getParticipant(card)
+    if(!participant.Cedula_Participante) return 'Non-existing participant'
+    let { data: DetalleGrupo, error } = await supabase
+    .from('DetalleGrupos')
+    .select('Grupos (Id_Grupo, Nombre_Grupo, Descripcion_Grupo, Habilitado_Grupo)')
+    .eq('Cedula_Participante', card)
+    if(error) return error
+    console.log(DetalleGrupo)
+    const newGrupos=  DetalleGrupo.map(Grupo=> {
+        return {"id": Grupo.Grupos.Id_Grupo, 
+                "nombre": Grupo.Grupos.Nombre_Grupo, 
+                "descripcion": Grupo.Grupos.Descripcion_Grupo,
+                "habilitado": Grupo.Grupos.Habilitado_Grupo,  
+                }
+    })
+    return newGrupos
+}

@@ -35,3 +35,8 @@ exports.deleteParticipant = (data) => {
     if(!data.card) return 'card not provided'
     return model.deleteParticipant(data.card)
 }
+
+exports.getGroupsOfParticipant = (data) =>{
+    if(!data.card) return 'card not provided'
+    return model.getGroupsOfParticipant(data.card)
+}
