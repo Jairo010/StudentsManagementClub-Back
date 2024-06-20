@@ -104,6 +104,25 @@ exports.getParticipantsByGroup = async (idGroup) =>{
     return newParticipants
 } 
 
+exports.getCompetitionsOfGroup = async(id) => {
+    const group = await this.getGroup(id)
+    if(!group.Id_Grupo) return 'Non-existing group'
+    let { data: DetalleCompetition, error } = await supabase
+    .from('DetalleConcursos')
+    .select('Concursos (*)')
+    .eq('Id_Grupo', id)
+    if(error) return error
+    const newCompetitions=  DetalleCompetition.map(competition=> {
+        return {"id": competition.Concursos.id, 
+                "Tipo_Concurso": competition.Concursos.Tipo_Concurso,
+                "Num_Max_Integrantes": competition.Concursos.Num_Max_Integrantes,
+                "Valor_Inscripcion": competition.Concursos.Valor_Inscripcion,
+                "Estado": competition.Concursos.Estado
+                }
+    })
+    return newCompetitions
+}
+
 function generarClave(){
     const clave = Math.floor(10000 + Math.random() * 90000);
     console.log(clave)

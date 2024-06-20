@@ -14,6 +14,9 @@ const events = require('./modulos/events/route.js')
 const participants = require('./modulos/Participants/route.js')
 const universities = require('./modulos/Universities/route.js')
 const groups = require('./modulos/Groups/route.js')
+const speakers = require('./modulos/Speakers/route.js')
+const talks = require('./modulos/Talks/route.js')
+const competitions = require('./modulos/Competitions/route.js')
 const error = require('./red/errors');
 
 const app = express();
@@ -43,5 +46,8 @@ app.use('/api/events', events)
 app.use('/api/participants', participants)
 app.use('/api/universities', universities)
 app.use('/api/groups', groups)
+app.use('/api/speakers', speakers)
+app.use('/api/talks', talks)
+app.use('/api/competitions', competitions)
 app.use(error)  
 //endregion
