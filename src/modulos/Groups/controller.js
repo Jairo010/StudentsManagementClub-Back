@@ -43,3 +43,8 @@ exports.getParticipantsByGroup =(data) =>{
     if(!data.idGroup) return 'idGroup not provided'
     return model.getParticipantsByGroup(data.idGroup)
 }
+
+exports.getCompetitionsOfGroup =(data)=>{
+    if(!data.id) return 'id not provided'
+    return model .getCompetitionsOfGroup(data.id)
+}

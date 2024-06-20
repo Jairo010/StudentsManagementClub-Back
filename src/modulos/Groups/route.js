@@ -8,8 +8,9 @@ const router = express.Router();
 router.post('/', createGroup);
 router.post('/assign', assignGroup);
 router.get('/', getGroups);
-router.get('/assign/:idGroup', getParticipantsByGroup);
 router.get('/:id', getGroup)
+router.get('/assign/:idGroup', getParticipantsByGroup);
+router.get('/assign/competitions/:id', getCompetitionsOfGroup);
 router.put('/', updateGroup)
 router.delete('/:id', deleteGroup)
 router.delete('/assign/:idGroup/:card', deleteAssignedGroup)
@@ -82,6 +83,15 @@ async function deleteAssignedGroup(req, res, next){
 async function getParticipantsByGroup(req, res, next){
     try {
         const item = await controller.getParticipantsByGroup(req.params)
+        response.success(req,res, item, 200)
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function getCompetitionsOfGroup(req, res, next){
+    try {
+        const item = await controller.getCompetitionsOfGroup(req.params)
         response.success(req,res, item, 200)
     } catch (error) {
         next(error)
