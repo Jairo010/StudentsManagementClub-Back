@@ -1,13 +1,14 @@
 const express = require('express');
 
 const response = require('../../red/respuestas')
-const controller = require('./controller')
+const controller = require('./controller');
 
 const router = express.Router();
 
 router.get('/', getMembers);
 router.get('/:id', getMember);
 router.get('/getByCard/:card', getMembersByCard);
+router.get('/clubs/:card', getClubsOfMember)
 router.put('/', updateMember);
 router.delete('/:id', deleteMember);
 
@@ -24,6 +25,15 @@ async function getMembers(req, res, next){
 async function getMember(req, res, next){
     try {
         const item = await controller.getMember(req.params)
+        response.success(req,res, item, 200)
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function getClubsOfMember(req, res, next){
+    try {
+        const item = await controller.getClubsOfMember(req.params)
         response.success(req,res, item, 200)
     } catch (error) {
         next(error)

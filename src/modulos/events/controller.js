@@ -32,3 +32,37 @@ exports.deleteEvent = (data) => {
     if(!data.id) return 'id not provided'
     return model.deleteEvent(data.id)
 }
+
+exports.assignCompetition = (data) =>{
+    if(!data.idEvent) return 'idEvent not provided'
+    if(!data.idCompetition) return 'idCompetition not provided'
+    return model.assignCompetition(data.idEvent, data.idCompetition)
+}
+
+exports.assignTalk = (data) =>{
+    if(!data.idEvent) return 'idEvent not provided'
+    if(!data.idTalk) return 'idTalk not provided'
+    return model.assignTalk(data.idEvent, data.idTalk)
+}
+
+exports.deleteAssignedCompetition =(data) =>{
+    if(!data.idEvent) return 'idEvent not provided'
+    if(!data.idCompetition) return 'idCompetition not provided'
+    return model.deleteAssignedCompetition(data.idEvent, data.idCompetition)
+}
+
+exports.deleteAssignedTalk =(data) =>{
+    if(!data.idEvent) return 'idEvent not provided'
+    if(!data.idTalk) return 'idTalk not provided'
+    return model.deleteAssignedTalk(data.idEvent, data.idTalk)
+}
+
+exports.getCompetitionsByEvent = (data)=>{
+    if(!data.idEvent) return 'idEvento not provided'
+    return model.getCompetitionsByEvent(data.idEvent)
+}
+
+exports.getTalksByEvent = (data)=>{
+    if(!data.idEvent) return 'idEvento not provided'
+    return model.getTalksByEvent(data.idEvent)
+}

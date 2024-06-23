@@ -29,3 +29,8 @@ exports.getMembersByCard = (data) =>{
     if(!data.card) return 'card not provided'
     return model.getMembersByCard(data.card)
 }
+
+exports.getClubsOfMember= (data) =>{
+    if(!data.card) return 'card not provided'
+    return model.getClubsOfMember(data.card)
+} 
