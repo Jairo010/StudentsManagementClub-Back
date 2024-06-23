@@ -92,3 +92,19 @@ exports.getId =async (id) =>{
     if(error) return error
     return userData
 }
+
+exports.getClubsOfMember = async(card) => {
+    let { data: detalleClub, error } = await supabase
+    .from('DetalleClubs')
+    .select('Clubs(*)')
+    .eq('id_Integrante', card)
+    if(error) return error
+    const newClubs= detalleClub.map(club=> {
+        return {
+                "id": club.Clubs.id,
+                "Nombre": club.Clubs.Nombre,
+                "Descripcion": club.Clubs.Descripcion,
+                }
+    })
+    return newClubs
+}
