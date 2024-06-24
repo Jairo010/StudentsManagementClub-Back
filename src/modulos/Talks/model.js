@@ -89,9 +89,11 @@ exports.getSpeakersByTalk = async (idTalk) =>{
     const newSpeakers=  DetalleTalk.map(speaker=> {
         return {"cedula": speaker.Ponentes.Cedula_Ponente, 
                 "nombre": speaker.Ponentes.Nombre_Ponente,
+                "apellido": speaker.Ponentes.Apellido_Ponente,
                 "correo": speaker.Ponentes.Correo_Ponente,
                 "telefono": speaker.Ponentes.Telefono_Ponente,
-                "briografia": speaker.Ponentes.Biografia_Ponente 
+                "briografia": speaker.Ponentes.Biografia_Ponente,
+                "charla": speaker.Ponentes.Tema_Charla 
                 }
     })
     return newSpeakers
