@@ -1,7 +1,7 @@
 import { createCompetition, getCompetitions, getCompetition, updateCompetition, deleteCompetition, assignCompetition, deleteAssignedCompetition, getGroupsByCompetition } from "../../modulos/Competitions/model";
 
 
-describe('Pruebas de servicio de Clubs.', () => {
+describe('Pruebas de servicio de Concursos.', () => {
     beforeAll(() => {
         expect(process.env.SUPABASEKEYPUBLIC).toBeDefined();
         expect(process.env.SUPABASEKEY).toBeDefined();

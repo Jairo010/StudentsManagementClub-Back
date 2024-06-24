@@ -1,7 +1,7 @@
 import { createEvent, getEvents, getEvent, updateEvent, deleteEvent, assignCompetition, assignTalk, deleteAssignedCompetition, deleteAssignedTalk, getCompetitionsByEvent, getTalksByEvent} from "../../modulos/events/model";
 
 
-describe('Pruebas de servicio de Clubs.', () => {
+describe('Pruebas de servicio de Eventos.', () => {
     beforeAll(() => {
         expect(process.env.SUPABASEKEYPUBLIC).toBeDefined();
         expect(process.env.SUPABASEKEY).toBeDefined();

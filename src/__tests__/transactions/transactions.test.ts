@@ -1,7 +1,7 @@
 import { createTransaction, getTransactions, getTransaction, updateTransaction, deleteTransaction} from "../../modulos/Transactions/model";
 
 
-describe('Pruebas de servicio de Clubs.', () => {
+describe('Pruebas de servicio de Transacciones.', () => {
     beforeAll(() => {
         expect(process.env.SUPABASEKEYPUBLIC).toBeDefined();
         expect(process.env.SUPABASEKEY).toBeDefined();
