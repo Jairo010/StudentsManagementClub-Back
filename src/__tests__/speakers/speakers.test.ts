@@ -1,7 +1,7 @@
 import { createSpeaker, getSpeakers, getSpeaker, updateSpeaker, deleteSpeaker, getTalksOfSpeaker } from "../../modulos/Speakers/model";
 
 
-describe('Pruebas de servicio de Groups.', () => {
+describe('Pruebas de servicio de Ponentes.', () => {
     beforeAll(() => {
         expect(process.env.SUPABASEKEYPUBLIC).toBeDefined();
         expect(process.env.SUPABASEKEY).toBeDefined();

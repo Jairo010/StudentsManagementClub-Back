@@ -1,7 +1,7 @@
 import { createTalk, getTalks, getTalk, updateTalk, deleteTalk, assignTalk, deleteAssignedTalk, getSpeakersByTalk } from "../../modulos/Talks/model";
 
 
-describe('Pruebas de servicio de Clubs.', () => {
+describe('Pruebas de servicio de Charlas.', () => {
     beforeAll(() => {
         expect(process.env.SUPABASEKEYPUBLIC).toBeDefined();
         expect(process.env.SUPABASEKEY).toBeDefined();
@@ -77,7 +77,7 @@ describe('Pruebas de servicio de Clubs.', () => {
     });
 
 
-    test('prueba de asiganr una charla a un ponente', async () => {
+    test('prueba de asignar una charla a un ponente.', async () => {
         const idTalk = '30';
         const card: string = '1805273396';
         const result = await assignTalk(idTalk,card);
